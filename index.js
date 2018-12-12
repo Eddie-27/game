@@ -8,6 +8,7 @@ const youLost = document.querySelector(".you-lost");
 const instructions = document.querySelector(".instructions");
 const colorBlock = document.querySelector(".color-block");
 const lostAnswer = document.querySelector(".answer");
+const yourAnswer = document.querySelector(".your-answer");
 const body = document.querySelector("body");
 let colorCorrect = "";
 let colorGroup = "";
@@ -29,6 +30,7 @@ function startGame(colorN,colorN2,colorN3){
     startButton.classList.add("hidden");
     instructions.classList.remove("hidden");
     lostAnswer.classList.add("hidden");
+    yourAnswer.classList.add("hidden");
     colorGroup = Math.floor(Math.random() * (colors.length));
     colorCorrect = Math.floor(Math.random() * (colors[colorGroup].length));
     colorBlock.classList.remove("hidden");
@@ -69,19 +71,23 @@ function startGame(colorN,colorN2,colorN3){
 }
 
 function answer(){
-        colorOne.classList.add("hidden");
-        colorTwo.classList.add("hidden");
-        colorThree.classList.add("hidden");
-        colorBlock.classList.add("hidden");
-        startButton.classList.remove("hidden");
-        instructions.classList.add("hidden");
-    if (event.target.innerText === colors[colorGroup][colorCorrect]) {
+    let correctAnswer = colors[colorGroup][colorCorrect]
+    colorOne.classList.add("hidden");
+    colorTwo.classList.add("hidden");
+    colorThree.classList.add("hidden");
+    colorBlock.classList.add("hidden");
+    startButton.classList.remove("hidden");
+    instructions.classList.add("hidden");
+    if (event.target.innerText === correctAnswer) {
         youWon.classList.remove("hidden");
     } else {
         youLost.classList.remove("hidden");
-        lostAnswer.innerText = "The answer is: " + colors[colorGroup][colorCorrect];
+        yourAnswer.innerText = "You put: " + event.target.innerText;
+        lostAnswer.innerText = "The answer was: " + correctAnswer;
+        lostAnswer.style.color = correctAnswer;
+        yourAnswer.style.color = event.target.innerText
         lostAnswer.classList.remove("hidden");
-
+        yourAnswer.classList.remove("hidden");
     }
 }
 
