@@ -8,17 +8,25 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div class="color-block hidden"></div>
     <div class="wrapper">
         <h1 class="instructions hidden">Click the name you think the color is</h1>
+        <div class="color-block hidden"></div>
         <button class="start-button">start</button>
-        <p class="color1"></p>
-        <p class="color2"></p>
-        <p class="color3"></p>
-        <p class="you-won hidden win-loss">You won!</p>
-        <p class="you-lost hidden win-loss">You lost!</p>
+        <button class="color1 colors hidden"></button>
+        <button class="color2 colors hidden"></button>
+        <button class="color3 colors hidden"></button>
+        <p class="you-won hidden win-loss">Correct!</p>
+        <p class="you-lost hidden win-loss">Incorrect!</p>
         <p class="your-answer hidden"></p>
         <p class="answer hidden"></p>
+    </div>
+    <div class="scores">
+        <p class="score"></p>
+        <p class="high-score"></p>
+    </div>
+    <div class="fractions">
+        <p class="percentage"></p>
+        <p class="fraction"></p>
     </div>
     <script src="index.js"></script>
     <script src="colors.js"></script>

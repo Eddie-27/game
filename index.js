@@ -10,8 +10,21 @@ const colorBlock = document.querySelector(".color-block");
 const lostAnswer = document.querySelector(".answer");
 const yourAnswer = document.querySelector(".your-answer");
 const body = document.querySelector("body");
+const yourScore = document.querySelector(".score");
+const yourHighscore = document.querySelector(".high-score");
+const yourPercentage = document.querySelector(".percentage");
+const yourFraction = document.querySelector(".fraction");
 let colorCorrect = "";
 let colorGroup = "";
+let score = 0;
+let highscore = 0;
+let totalCorrect = 0;
+let totalGoes = 0;
+yourScore.innerText = "Your score is: " + score;
+yourHighscore.innerText = "Your highscore is: " + highscore;
+yourPercentage.innerText = "Your correct percentage is: 0%";
+yourFraction.innerText = totalCorrect + "/" + totalGoes;
+
 
 colorOne.addEventListener("click", answer);
 colorTwo.addEventListener("click", answer);
@@ -25,12 +38,16 @@ function randomiseColor(){
 }
 
 function startGame(colorN,colorN2,colorN3){
+    colorOne.classList.remove("hidden");
+    colorTwo.classList.remove("hidden");
+    colorThree.classList.remove("hidden");
     youLost.classList.add("hidden");
     youWon.classList.add("hidden");
     startButton.classList.add("hidden");
     instructions.classList.remove("hidden");
     lostAnswer.classList.add("hidden");
     yourAnswer.classList.add("hidden");
+    startButton.innerText = "next";
     colorGroup = Math.floor(Math.random() * (colors.length));
     colorCorrect = Math.floor(Math.random() * (colors[colorGroup].length));
     colorBlock.classList.remove("hidden");
@@ -56,6 +73,9 @@ function startGame(colorN,colorN2,colorN3){
         youWon.classList.remove("black-text");
         youLost.classList.remove("black-text");
         instructions.classList.remove("black-text");
+        colorOne.style.backgroundColor = "black";
+        colorTwo.style.backgroundColor = "black";
+        colorThree.style.backgroundColor = "black";
     } else {
         body.style.backgroundColor = "white";
         youWon.classList.add("black-text");
@@ -64,6 +84,9 @@ function startGame(colorN,colorN2,colorN3){
         youWon.classList.remove("white-text");
         youLost.classList.remove("white-text");
         instructions.classList.remove("white-text");
+        colorOne.style.backgroundColor = "white";
+        colorTwo.style.backgroundColor = "white";
+        colorThree.style.backgroundColor = "white";
     }
     colorOne.classList.remove("hidden");
     colorTwo.classList.remove("hidden");
@@ -71,7 +94,7 @@ function startGame(colorN,colorN2,colorN3){
 }
 
 function answer(){
-    let correctAnswer = colors[colorGroup][colorCorrect]
+    let correctAnswer = colors[colorGroup][colorCorrect];
     colorOne.classList.add("hidden");
     colorTwo.classList.add("hidden");
     colorThree.classList.add("hidden");
@@ -80,6 +103,14 @@ function answer(){
     instructions.classList.add("hidden");
     if (event.target.innerText === correctAnswer) {
         youWon.classList.remove("hidden");
+        score += 1;
+        totalCorrect += 1;
+        totalGoes += 1;
+        yourScore.innerText = "Your score is: " + score;
+        if (score > highscore) highscore = score;
+        yourHighscore.innerText = "Your highscore is: " + highscore;
+        yourFraction.innerText = totalCorrect + "/" + totalGoes;
+        yourPercentage.innerText = "Your correct percentage is: " + ((totalCorrect / totalGoes) * 100).toFixed(2) + "%";
     } else {
         youLost.classList.remove("hidden");
         yourAnswer.innerText = "You put: " + event.target.innerText;
@@ -88,10 +119,15 @@ function answer(){
         yourAnswer.style.color = event.target.innerText
         lostAnswer.classList.remove("hidden");
         yourAnswer.classList.remove("hidden");
+        score = 0;
+        totalGoes += 1;
+        yourScore.innerText = "Your score is: " + score;
+        yourFraction.innerText = totalCorrect + "/" + totalGoes;
+        yourPercentage.innerText = "Your correct percentage is: " + ((totalCorrect / totalGoes) * 100).toFixed(2) + "%";
     }
 }
 
 function applyColorToElement(colorGroup,colorCorrect){
-    const paragraphs = [colorOne, colorTwo, colorThree, instructions];
+    const paragraphs = [colorOne, colorTwo, colorThree, instructions, yourScore, yourHighscore, yourFraction, yourPercentage];
     paragraphs.forEach(el => el.style.color = colors[colorGroup][colorCorrect]);
 }
