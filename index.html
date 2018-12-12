@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Color game</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    hello
+    <div class="color-block hidden"></div>
+    <div class="wrapper">
+        <h1 class="instructions hidden">Click what name you think the color is</h1>
+        <button class="start-button">start</button>
+        <p class="color1"></p>
+        <p class="color2"></p>
+        <p class="color3"></p>
+        <p class="you-won hidden win-loss">You won!</p>
+        <p class="you-lost hidden win-loss">You lost!</p>
+        <p class="answer hidden"></p>
+    </div>
     <script src="index.js"></script>
+    <script src="colors.js"></script>
 </body>
 </html>

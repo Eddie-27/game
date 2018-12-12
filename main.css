@@ -1,2 +1,37 @@
-body{color:#7f058a;
-    background-color: mediumSlateBlue;}
+.hidden {
+    display:none;
+}
+
+.color-block {
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+
+.instructions {
+    font-size: 20px;
+}
+.wrapper {
+    font-size: 30px;
+    text-align: center;
+}
+
+.start-button {
+    text-align: center;
+}
+
+.win {
+    font-size: 100px;
+    text-align: center;
+    font-family: "Comic Sans MS";
+}
+
+.white-text {
+    color : white;
+}
+
+.black-text {
+    color : black;
+}

@@ -29,12 +29,6 @@ const green = [
     "darkslategrey",
 ]
 
-const yellow = [
-    "antiquewhite",
-    "beige",
-    "bisque",
-]
-
 const orange = [
     "darkgoldenrod",
     "darkorange",
@@ -65,5 +59,5 @@ const grey = [
     "grey",
 ]
 
-const colors = [lightblue,blue,lime,red,green,yellow,orange,purple,pink,brown,grey];
-const lightColors = [yellow,lightblue,pink,lime];
+const colors = [lightblue,blue,lime,red,green,orange,purple,pink,brown,grey];
+const lightColors = [lightblue,pink,lime];
