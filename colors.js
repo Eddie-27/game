@@ -142,10 +142,10 @@ const grey = [
     "darkslategrey",
     "lightgrey",
     "lightslategrey",
-    "lightsteelblue",
     "silver",
     "slategrey",
 ]
 
 const colors = [lightblue,blue,lime,red,green,orange,purple,pink,brown,grey];
-const lightColors = [lightblue,pink,lime,grey];
+const lightColors = [lightblue,pink,lime];
+const lightGreys = ["silver","lightgrey","darkgrey","lightslategrey"];

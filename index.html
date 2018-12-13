@@ -9,9 +9,11 @@
 </head>
 <body>
     <div class="wrapper">
-        <h1 class="instructions hidden">Click the name you think the color is</h1>
+        <button class="quit hidden buttons">quit to main menu</button>
+        <h1 class="instructions hidden"></h1>
         <div class="color-block hidden"></div>
-        <button class="start-button">start</button>
+        <button class="start-button buttons">play regular mode</button>
+        <button class="timed-start buttons">play timed mode</button>
         <button class="color1 colors hidden"></button>
         <button class="color2 colors hidden"></button>
         <button class="color3 colors hidden"></button>
@@ -19,14 +21,17 @@
         <p class="you-lost hidden win-loss">Incorrect!</p>
         <p class="your-answer hidden"></p>
         <p class="answer hidden"></p>
+        <p class="time"></p>
+        <p class="final-score hidden"></p>
     </div>
     <div class="scores">
-        <p class="score"></p>
-        <p class="high-score"></p>
+        <p class="score hidden"></p>
+        <p class="high-score hidden"></p>
+        <p class="timed-high-score hidden">Your high score has not been set yet</p>
     </div>
     <div class="fractions">
-        <p class="percentage"></p>
-        <p class="fraction"></p>
+        <p class="percentage hidden"></p>
+        <p class="fraction hidden"></p>
     </div>
     <script src="index.js"></script>
     <script src="colors.js"></script>

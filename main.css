@@ -1,14 +1,9 @@
-.hidden {
-    display:none;
-}
-
 .color-block {
     background-color: blue;
     width: 300px;
     height: 300px;
     margin: 0 auto;
 }
-
 
 .instructions {
     font-size: 35px;
@@ -17,14 +12,17 @@
 .wrapper {
     font-size: 50px;
     text-align: center;
-    padding-top: 100px;
 }
 
-.start-button {
+.buttons {
     text-align: center;
     font-size: 50px;
     border-radius: 20px;
     cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
 }
 
 .win {
@@ -42,10 +40,14 @@
 
 .colors {
     margin : 50px;
-    font-size: 80px;
+    font-size: 60px;
     border-radius: 20px;
     border: 0;
     cursor: pointer;
+}
+
+.time {
+    font-size: 20px;
 }
 
 .scores {
@@ -55,6 +57,7 @@
     margin: 0;
     font-size: 20px;
     padding: 5px 20px;
+    box-sizing: border-box;
 }
 
 .fractions {
@@ -66,8 +69,22 @@
     padding: 5px 20px;
 }
 
+.quit {
+    top: 0;
+    margin: 30px auto
+}
+
 .fraction {
     text-align: right;
+}
+
+.timed-start {
+    text-align: center;
+}
+
+.final-score {
+    font-size: 100px;
+    text-align: center;
 }
 
 body {
@@ -91,4 +108,8 @@ body {
         font-size: 30px;
         margin: 20px;
     }
+}
+
+.hidden {
+    display:none;
 }
