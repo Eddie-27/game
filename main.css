@@ -54,6 +54,7 @@
     left: 0;
     margin: 0;
     font-size: 20px;
+    padding: 5px 20px;
 }
 
 .fractions {
@@ -62,6 +63,7 @@
     right: 0;
     margin: 0;
     font-size: 20px;
+    padding: 5px 20px;
 }
 
 .fraction {
@@ -70,4 +72,23 @@
 
 body {
     font-family: "Comic Sans MS";
+}
+
+@media only screen and (max-width: 600px) {
+    .fractions {
+        display: none;
+    }
+    .scores {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .color-block {
+        width: 100px;
+        height: 100px;
+    }
+    .colors {
+        font-size: 30px;
+        margin: 20px;
+    }
 }

@@ -128,6 +128,6 @@ function answer(){
 }
 
 function applyColorToElement(colorGroup,colorCorrect){
-    const paragraphs = [colorOne, colorTwo, colorThree, instructions, yourScore, yourHighscore, yourFraction, yourPercentage];
+    const paragraphs = [colorOne, colorTwo, colorThree, instructions, yourScore, yourHighscore, yourFraction, yourPercentage, youLost, youWon];
     paragraphs.forEach(el => el.style.color = colors[colorGroup][colorCorrect]);
 }
