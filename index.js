@@ -226,4 +226,5 @@ function sansify() {
     startButton.classList.add("comic-sans-ms");
     timedStart.classList.add("comic-sans-ms");
     impossibleButton.classList.add("comic-sans-ms");
+    comicSans.classList.add("hidden");
 }
