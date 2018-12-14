@@ -21,6 +21,9 @@ const finalScore = document.querySelector(".final-score");
 const quit = document.querySelector(".quit");
 const impossibleButton = document.querySelector(".impossible-start");
 const yourImpossibleHighScore = document.querySelector(".impossible-high-score");
+const comicSans = document.querySelector(".comic-sans");
+const buttons = document.querySelectorAll(".buttons");
+const color123 = document.querySelectorAll(".colors");
 let colorCorrect = "";
 let colorGroup = "";
 let score = 0;
@@ -42,14 +45,16 @@ colorTwo.addEventListener("click", answer);
 colorThree.addEventListener("click", answer);
 startButton.addEventListener("click", randomiseColor);
 timedStart.addEventListener("click", randomiseColor);
+comicSans.addEventListener("click", sansify);
 quit.addEventListener("click", quitToMainMenu);
 impossibleButton.addEventListener("click", randomiseColor);
+body.style.backgroundColor = "black";
 
 
 function randomiseColor(){
     if (event.target.innerText === "play timed mode" || event.target.innerText === "retry" || timedMode === true) {
-        if (count === false) timer()
-        instructions.innerText = "Get as many correct as you can in 30 seconds"
+        if (count === false) timer();
+        instructions.innerText = "Get as many correct as you can in 30 seconds";
         timedMode = true;
     } else if (event.target.innerText === "play impossible mode" || event.target.innerText === "next impossible level" || impossibleMode === true) {      
         timedMode = false;
@@ -59,10 +64,10 @@ function randomiseColor(){
     if (x === 1) startGame(colorOne,colorTwo,colorThree);
     else if (x === 2) startGame(colorTwo,colorOne,colorThree);
     else startGame(colorThree,colorTwo,colorOne);
-    }
+}
 
 function timer(){
-    count = 30
+    count = 30;
     interval = setInterval(() => {
         count -= 0.1; 
         time.innerText = count.toFixed(1);
@@ -75,38 +80,27 @@ function timer(){
 
 function startGame(colorN,colorN2,colorN3){
     if (timedMode === true) {
-        timedHighscore.classList.remove("hidden");
-        time.classList.remove("hidden");
+        removeHidden([timedHighscore,time]);
     } else if (impossibleMode === true) {
-        yourImpossibleHighScore.classList.remove("hidden");
+        removeHidden([yourImpossibleHighScore]);
     } else {
-        yourHighscore.classList.remove("hidden");
+        removeHidden([yourHighscore]);
     }
-    quit.classList.remove("hidden");
-    yourPercentage.classList.remove("hidden");
-    yourScore.classList.remove("hidden");
-    yourFraction.classList.remove("hidden");
-    timedStart.classList.add("hidden");
-    colorOne.classList.remove("hidden");
-    colorTwo.classList.remove("hidden");
-    colorThree.classList.remove("hidden");
-    finalScore.classList.add("hidden");
-    youLost.classList.add("hidden");
-    youWon.classList.add("hidden");
-    startButton.classList.add("hidden");
-    impossibleButton.classList.add("hidden");
-    instructions.classList.remove("hidden");
-    instructions.innerText = "Click the name you think the color is";
-    lostAnswer.classList.add("hidden");
-    yourAnswer.classList.add("hidden");
+    removeHidden([quit,yourPercentage,yourScore,yourFraction,colorOne,colorTwo,colorThree,colorBlock,instructions]);
+    addHidden([timedStart,finalScore,youLost,youWon,startButton,impossibleButton,lostAnswer,yourAnswer,comicSans]);
     startButton.innerText = "next";
+    setColors(colorN,colorN2,colorN3);
+    applyColorToElement(colorGroup,colorCorrect);
+    backgroundChange();
+}
+
+function setColors(colorN,colorN2,colorN3) {
     if (impossibleMode === true) {
         colorGroup = colors.length-1;
     } else {
-        colorGroup = Math.floor(Math.random() * (colors.length-2));
+        colorGroup = Math.floor(Math.random() * (colors.length-1));
     }
     colorCorrect = Math.floor(Math.random() * (colors[colorGroup].length));
-    colorBlock.classList.remove("hidden");
     colorN.innerText = colors[colorGroup][colorCorrect];
     let colorIncorrect = colorCorrect;
     while (colorIncorrect === colorCorrect) {
@@ -118,9 +112,10 @@ function startGame(colorN,colorN2,colorN3){
         colorIncorrect = Math.floor(Math.random() * (colors[colorGroup].length));
     }
     colorN3.innerText = colors[colorGroup][colorIncorrect];
-    applyColorToElement(colorGroup,colorCorrect);
-    colorBlock.style.backgroundColor = colors[colorGroup][colorCorrect];
-     if (lightColors.includes(colors[colorGroup]) || lightGreys.includes(colors[colorGroup][colorCorrect])) {
+}
+
+function backgroundChange(){
+    if (lightColors.includes(colors[colorGroup]) || lightGreys.includes(colors[colorGroup][colorCorrect])) {
         body.style.backgroundColor = "black";
         colorOne.style.backgroundColor = "black";
         colorTwo.style.backgroundColor = "black";
@@ -131,21 +126,21 @@ function startGame(colorN,colorN2,colorN3){
         colorTwo.style.backgroundColor = "white";
         colorThree.style.backgroundColor = "white";
     }
-    colorOne.classList.remove("hidden");
-    colorTwo.classList.remove("hidden");
-    colorThree.classList.remove("hidden");
 }
 
 function answer(){
     let correctAnswer = colors[colorGroup][colorCorrect];
-    colorOne.classList.add("hidden");
-    colorTwo.classList.add("hidden");
-    colorThree.classList.add("hidden");
-    colorBlock.classList.add("hidden");
-    startButton.classList.remove("hidden");
-    instructions.classList.add("hidden");
+    addHidden([colorOne,colorTwo,colorThree,colorBlock,instructions]);
+    removeHidden([startButton]);
     if (event.target.innerText === correctAnswer) {
-        youWon.classList.remove("hidden");
+        correct(correctAnswer);
+    } else {
+       incorrect(correctAnswer);
+    }
+}
+
+function correct(){
+    removeHidden([youWon]);
         score += 1;
         totalCorrect += 1;
         totalGoes += 1;
@@ -157,49 +152,29 @@ function answer(){
             } else {
                 if (score > impossibleHighScore) impossibleHighScore = score;
                 yourImpossibleHighScore.innerText = "Your impossible highscore is: " + impossibleHighScore;
-                
             }
         }
         yourFraction.innerText = totalCorrect + "/" + totalGoes;
         yourPercentage.innerText = "Your correct percentage is: " + ((totalCorrect / totalGoes) * 100).toFixed(2) + "%";
-    } else {
-        youLost.classList.remove("hidden");
-        yourAnswer.innerText = "You put: " + event.target.innerText;
+}
+
+function incorrect(correctAnswer){
+    yourAnswer.innerText = "You put: " + event.target.innerText;
         lostAnswer.innerText = "The answer was: " + correctAnswer;
         lostAnswer.style.color = correctAnswer;
-        yourAnswer.style.color = event.target.innerText
-        lostAnswer.classList.remove("hidden");
-        yourAnswer.classList.remove("hidden");
+        yourAnswer.style.color = event.target.innerText;
+        removeHidden([youLost,lostAnswer,yourAnswer]);
         if (timedMode === false) score = 0;
         totalGoes += 1;
         yourScore.innerText = "Your score is: " + score;
         yourFraction.innerText = totalCorrect + "/" + totalGoes;
         yourPercentage.innerText = "Your correct percentage is: " + ((totalCorrect / totalGoes) * 100).toFixed(2) + "%";
-    }
 }
 
 function quitToMainMenu(){
-    quit.classList.add("hidden");
-    colorOne.classList.add("hidden");
-    colorTwo.classList.add("hidden");
-    colorThree.classList.add("hidden");
-    colorBlock.classList.add("hidden");
-    instructions.classList.add("hidden");
-    yourFraction.classList.add("hidden");
-    yourPercentage.classList.add("hidden");
-    yourScore.classList.add("hidden");
-    yourHighscore.classList.add("hidden");
-    timedHighscore.classList.add("hidden");
-    yourImpossibleHighScore.classList.add("hidden");
-    time.classList.add("hidden");
-    finalScore.classList.add("hidden");
-    youWon.classList.add("hidden");
-    youLost.classList.add("hidden");
-    yourAnswer.classList.add("hidden");
-    lostAnswer.classList.add("hidden");
-    startButton.classList.remove("hidden");
-    timedStart.classList.remove("hidden");
-    impossibleButton.classList.remove("hidden");
+    addHidden([quit,colorOne,colorTwo,colorThree,colorBlock,instructions,yourFraction,yourPercentage,yourScore,yourHighscore,timedHighscore,yourImpossibleHighScore,time,finalScore,youWon,youLost,yourAnswer,lostAnswer]);
+    removeHidden([startButton,timedStart,impossibleButton]);
+    body.style.backgroundColor = "black";
     score = 0;
     yourScore.innerText = "Your score is: 0";
     totalCorrect = 0;
@@ -215,24 +190,14 @@ function quitToMainMenu(){
 }
 
 function timeup(){
-    colorOne.classList.add("hidden");
-    colorTwo.classList.add("hidden");
-    colorThree.classList.add("hidden");
-    colorBlock.classList.add("hidden");
-    youLost.classList.add("hidden");
-    youWon.classList.add("hidden");
-    time.classList.add("hidden");
-    yourAnswer.classList.add("hidden");
-    lostAnswer.classList.add("hidden");
-    startButton.classList.add("hidden");
-    instructions.classList.add("hidden");
-    finalScore.classList.remove("hidden");
+    addHidden([colorOne,colorTwo,colorThree,colorBlock,youLost,youWon,time,yourAnswer,lostAnswer,startButton,instructions]);
+    removeHidden([finalScore]);
     timedStart.innerText = "retry";
     finalScore.innerText = "You scored: " + score;
     if (score > timedModeHighscore) timedModeHighscore = score;
     timedHighscore.innerText = "Your highscore in timed mode is: " + timedModeHighscore;
     setTimeout(() => {
-        timedStart.classList.remove("hidden");
+        removeHidden([timedStart]);
     }, 500);
     count = false;
 }
@@ -240,4 +205,25 @@ function timeup(){
 function applyColorToElement(colorGroup,colorCorrect){
     const paragraphs = [colorOne, colorTwo, colorThree, instructions, yourScore, yourHighscore, yourFraction, yourPercentage, youLost, youWon, time, timedHighscore, finalScore, yourImpossibleHighScore];
     paragraphs.forEach(el => el.style.color = colors[colorGroup][colorCorrect]);
+    colorBlock.style.backgroundColor = colors[colorGroup][colorCorrect];
+}
+
+function addHidden(list) {
+    list.forEach(item => item.classList.add("hidden"));
+}
+
+function removeHidden (list) {
+    list.forEach(item => item.classList.remove("hidden"));
+}
+
+function sansify() {
+    body.classList.remove("arial");
+    body.classList.add("comic-sans-ms");
+    colorOne.classList.add("comic-sans-ms");
+    colorTwo.classList.add("comic-sans-ms");
+    colorThree.classList.add("comic-sans-ms");
+    quit.classList.add("comic-sans-ms");
+    startButton.classList.add("comic-sans-ms");
+    timedStart.classList.add("comic-sans-ms");
+    impossibleButton.classList.add("comic-sans-ms");
 }

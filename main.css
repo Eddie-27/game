@@ -44,6 +44,7 @@
     border-radius: 20px;
     border: 0;
     cursor: pointer;
+    transition: transform 0.3s;
 }
 
 .time {
@@ -88,8 +89,9 @@
     text-align: center;
 }
 
-body {
-    font-family: "Comic Sans MS";
+.colors:hover {
+    transform: scale(1.25);
+    transition: transform 0.5s;
 }
 
 @media only screen and (max-width: 600px) {
@@ -124,8 +126,27 @@ body {
     .quit {
         margin-top: 100px;
     }
+    .start-button {
+        margin-top: 20px;
+    }
 }
 
 .hidden {
     display:none;
+}
+
+.comic-sans{
+    top: 0;
+    left: 0;
+    position: absolute;
+    color : #0f0f0f;
+    margin: 0;
+}
+
+.arial{
+    font-family: arial;
+}
+
+.comic-sans-ms{
+    font-family: "Comic Sans MS";
 }
