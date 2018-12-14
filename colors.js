@@ -152,12 +152,13 @@ const white = [
     "floralwhite",
     "ghostwhite",
     "honeydew",
+    "ivory",
     "lavenderblush",
     "mintcream",
     "seashell",
     "snow",
     "white",
-    "whitesmoke"
+    "whitesmoke",
 ]
 
 const colors = [lightblue,blue,lime,red,green,orange,purple,pink,brown,grey,white];
