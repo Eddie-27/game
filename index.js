@@ -19,6 +19,8 @@ const time = document.querySelector(".time");
 const timedHighscore = document.querySelector(".timed-high-score");
 const finalScore = document.querySelector(".final-score");
 const quit = document.querySelector(".quit");
+const impossibleButton = document.querySelector(".impossible-start");
+const yourImpossibleHighScore = document.querySelector(".impossible-high-score");
 let colorCorrect = "";
 let colorGroup = "";
 let score = 0;
@@ -29,6 +31,8 @@ let totalGoes = 0;
 let count = false;
 let interval = 0;
 let timedMode = false;
+let impossibleMode = false;
+let impossibleHighScore = 0;
 yourScore.innerText = "Your score is: " + score;
 yourHighscore.innerText = "Your highscore is: " + highscore;
 yourPercentage.innerText = "Your correct percentage is: 0%";
@@ -39,13 +43,18 @@ colorThree.addEventListener("click", answer);
 startButton.addEventListener("click", randomiseColor);
 timedStart.addEventListener("click", randomiseColor);
 quit.addEventListener("click", quitToMainMenu);
+impossibleButton.addEventListener("click", randomiseColor);
+
 
 function randomiseColor(){
     if (event.target.innerText === "play timed mode" || event.target.innerText === "retry" || timedMode === true) {
         if (count === false) timer()
         instructions.innerText = "Get as many correct as you can in 30 seconds"
         timedMode = true;
-    } else timedMode = false;
+    } else if (event.target.innerText === "play impossible mode" || event.target.innerText === "next impossible level" || impossibleMode === true) {      
+        timedMode = false;
+        impossibleMode = true;
+    }
     let x = Math.floor(Math.random() * 3) + 1;
     if (x === 1) startGame(colorOne,colorTwo,colorThree);
     else if (x === 2) startGame(colorTwo,colorOne,colorThree);
@@ -66,9 +75,11 @@ function timer(){
 
 function startGame(colorN,colorN2,colorN3){
     if (timedMode === true) {
-        timedHighscore.classList.remove("hidden")
+        timedHighscore.classList.remove("hidden");
         time.classList.remove("hidden");
-    } else{
+    } else if (impossibleMode === true) {
+        yourImpossibleHighScore.classList.remove("hidden");
+    } else {
         yourHighscore.classList.remove("hidden");
     }
     quit.classList.remove("hidden");
@@ -83,12 +94,17 @@ function startGame(colorN,colorN2,colorN3){
     youLost.classList.add("hidden");
     youWon.classList.add("hidden");
     startButton.classList.add("hidden");
+    impossibleButton.classList.add("hidden");
     instructions.classList.remove("hidden");
     instructions.innerText = "Click the name you think the color is";
     lostAnswer.classList.add("hidden");
     yourAnswer.classList.add("hidden");
     startButton.innerText = "next";
-    colorGroup = Math.floor(Math.random() * (colors.length));
+    if (impossibleMode === true) {
+        colorGroup = colors.length-1;
+    } else {
+        colorGroup = Math.floor(Math.random() * (colors.length-2));
+    }
     colorCorrect = Math.floor(Math.random() * (colors[colorGroup].length));
     colorBlock.classList.remove("hidden");
     colorN.innerText = colors[colorGroup][colorCorrect];
@@ -134,10 +150,15 @@ function answer(){
         totalCorrect += 1;
         totalGoes += 1;
         yourScore.innerText = "Your score is: " + score;
-        console.log(timedMode);
-        if (timedMode === false) {
-            if (score > highscore) highscore = score;
-            yourHighscore.innerText = "Your highscore is: " + highscore;
+        if (timedMode === false ) {
+            if (impossibleMode === false) {
+                if (score > highscore) highscore = score;
+                yourHighscore.innerText = "Your highscore is: " + highscore;
+            } else {
+                if (score > impossibleHighScore) impossibleHighScore = score;
+                yourImpossibleHighScore.innerText = "Your impossible highscore is: " + impossibleHighScore;
+                
+            }
         }
         yourFraction.innerText = totalCorrect + "/" + totalGoes;
         yourPercentage.innerText = "Your correct percentage is: " + ((totalCorrect / totalGoes) * 100).toFixed(2) + "%";
@@ -169,6 +190,7 @@ function quitToMainMenu(){
     yourScore.classList.add("hidden");
     yourHighscore.classList.add("hidden");
     timedHighscore.classList.add("hidden");
+    yourImpossibleHighScore.classList.add("hidden");
     time.classList.add("hidden");
     finalScore.classList.add("hidden");
     youWon.classList.add("hidden");
@@ -177,6 +199,7 @@ function quitToMainMenu(){
     lostAnswer.classList.add("hidden");
     startButton.classList.remove("hidden");
     timedStart.classList.remove("hidden");
+    impossibleButton.classList.remove("hidden");
     score = 0;
     yourScore.innerText = "Your score is: 0";
     totalCorrect = 0;
@@ -184,6 +207,7 @@ function quitToMainMenu(){
     yourFraction.innerText = "0/0";
     yourPercentage.innerText = "Your correct percentage is: 0%";
     timedMode = false;
+    impossibleMode = false;
     clearInterval(interval);
     count = false;
     startButton.innerText = "play regular mode";
@@ -214,6 +238,6 @@ function timeup(){
 }
 
 function applyColorToElement(colorGroup,colorCorrect){
-    const paragraphs = [colorOne, colorTwo, colorThree, instructions, yourScore, yourHighscore, yourFraction, yourPercentage, youLost, youWon, time, timedHighscore, finalScore];
+    const paragraphs = [colorOne, colorTwo, colorThree, instructions, yourScore, yourHighscore, yourFraction, yourPercentage, youLost, youWon, time, timedHighscore, finalScore, yourImpossibleHighScore];
     paragraphs.forEach(el => el.style.color = colors[colorGroup][colorCorrect]);
 }

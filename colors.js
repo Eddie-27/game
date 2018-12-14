@@ -146,6 +146,20 @@ const grey = [
     "slategrey",
 ]
 
-const colors = [lightblue,blue,lime,red,green,orange,purple,pink,brown,grey];
-const lightColors = [lightblue,pink,lime];
+const white = [
+    "aliceblue",
+    "azure",
+    "floralwhite",
+    "ghostwhite",
+    "honeydew",
+    "lavenderblush",
+    "mintcream",
+    "seashell",
+    "snow",
+    "white",
+    "whitesmoke"
+]
+
+const colors = [lightblue,blue,lime,red,green,orange,purple,pink,brown,grey,white];
+const lightColors = [lightblue,pink,lime,white];
 const lightGreys = ["silver","lightgrey","darkgrey","lightslategrey"];
