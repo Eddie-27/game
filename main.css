@@ -47,7 +47,7 @@
 }
 
 .time {
-    font-size: 20px;
+    font-size: 50px;
 }
 
 .scores {
@@ -71,7 +71,8 @@
 
 .quit {
     top: 0;
-    margin: 30px auto
+    margin: 30px auto;
+    font-size: 30px;
 }
 
 .fraction {
@@ -107,6 +108,21 @@ body {
     .colors {
         font-size: 30px;
         margin: 20px;
+    }
+    .you-lost {
+        font-size: 30px;
+    }
+    .your-answer{
+        font-size: 30px;
+    }
+    .answer {
+        font-size: 30px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .quit {
+        margin-top: 100px;
     }
 }
 

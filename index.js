@@ -26,7 +26,7 @@ let highscore = 0;
 let timedModeHighscore = 0;
 let totalCorrect = 0;
 let totalGoes = 0;
-let count = 0;
+let count = false;
 let interval = 0;
 let timedMode = false;
 yourScore.innerText = "Your score is: " + score;
@@ -41,8 +41,8 @@ timedStart.addEventListener("click", randomiseColor);
 quit.addEventListener("click", quitToMainMenu);
 
 function randomiseColor(){
-    if (event.target.innerText === "play timed mode" || event.target.innerText === "retry") {
-        timer()
+    if (event.target.innerText === "play timed mode" || event.target.innerText === "retry" || timedMode === true) {
+        if (count === false) timer()
         instructions.innerText = "Get as many correct as you can in 30 seconds"
         timedMode = true;
     } else timedMode = false;
@@ -134,6 +134,7 @@ function answer(){
         totalCorrect += 1;
         totalGoes += 1;
         yourScore.innerText = "Your score is: " + score;
+        console.log(timedMode);
         if (timedMode === false) {
             if (score > highscore) highscore = score;
             yourHighscore.innerText = "Your highscore is: " + highscore;
@@ -176,7 +177,15 @@ function quitToMainMenu(){
     lostAnswer.classList.add("hidden");
     startButton.classList.remove("hidden");
     timedStart.classList.remove("hidden");
+    score = 0;
+    yourScore.innerText = "Your score is: 0";
+    totalCorrect = 0;
+    totalGoes = 0;
+    yourFraction.innerText = "0/0";
+    yourPercentage.innerText = "Your correct percentage is: 0%";
+    timedMode = false;
     clearInterval(interval);
+    count = false;
     startButton.innerText = "play regular mode";
     timedStart.innerText = "play timed mode";
 }
@@ -201,6 +210,7 @@ function timeup(){
     setTimeout(() => {
         timedStart.classList.remove("hidden");
     }, 500);
+    count = false;
 }
 
 function applyColorToElement(colorGroup,colorCorrect){
