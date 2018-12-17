@@ -174,6 +174,7 @@ function incorrect(correctAnswer){
 function quitToMainMenu(){
     addHidden([quit,colorOne,colorTwo,colorThree,colorBlock,instructions,yourFraction,yourPercentage,yourScore,yourHighscore,timedHighscore,yourImpossibleHighScore,time,finalScore,youWon,youLost,yourAnswer,lostAnswer]);
     removeHidden([startButton,timedStart,impossibleButton]);
+    instructions.innerText = "Click what you think the name of the color is.";
     body.style.backgroundColor = "black";
     score = 0;
     yourScore.innerText = "Your score is: 0";
